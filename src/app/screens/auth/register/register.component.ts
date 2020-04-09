@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,9 +15,17 @@ export class RegisterComponent implements OnInit {
     password: new FormControl('')
   });
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.protectedAuth();
+  }
+
+  protectedAuth = () => {
+    if (localStorage.getItem("token")) {
+      this.router.navigate(['/']);
+
+    }
   }
 
   registerUser = () => {
